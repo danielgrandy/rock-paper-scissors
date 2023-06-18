@@ -1,112 +1,193 @@
-console.log("Hello World!!!!")
-
 function getComputerChoice() {
     let handArray = ["rock", "paper", "scissors"];
     let index = Math.floor(Math.random() * 3);
 
     computerHand = handArray[index];
    
-    console.log("Computer's choice is " + computerHand + ".");
+    setTimeout(function(){
+        divText.textContent = "Computer's choice is " + computerHand + ".";
+    }, 4000);
+    
     return computerHand;
-    
 }
-
-// getComputerChoice();
-
-// DONE!
-
-function getPlayerChoice() {
-    let playerChoice = prompt("Welcome to the Rock, Paper, Scissors simulation! Which hand would you like to play?").toLowerCase();
-
-
-    if (playerChoice === "rock" || playerChoice === "paper" || playerChoice === "scissors") {
-        alert("You've chosen " + playerChoice + "! An intriguing choice..... one could never have expected such boldness.");
-    }
-
-    else {
-        alert("Girl, stop fooling around! Refresh the page and try again.")
-    };
-    
-    console.log("Player's choice is " + playerChoice + ".");
-    return playerChoice;
-}
-
-// getPlayerChoice();
-
-// DONE! tho it would be nice if it could loop back on a wrong answer
-
-
 
 let playerPoints = 0;
 let computerPoints = 0;
 
+function playerUp() {
+   setTimeout(function(){ 
+    parseInt(document.getElementById('scoreText').innerHTML = ++playerPoints);
+   }, 4000);
+};
+
+function computerUp() {
+   setTimeout(function(){
+    parseInt(document.getElementById('scoreText2').innerHTML = ++computerPoints);
+   }, 4000);
+};
+
+function winState () {
+    if (playerPoints === 5) {
+    setTimeout(function(){
+        divText.textContent = "You've won!";
+    }, 8000);
+}
+    else if (computerPoints === 5) {
+        setTimeout(function(){
+            divText.textContent = "You've failed!";
+        }, 8000);
+    }
+    
+};
 
 
 function playRound(playerSelection, computerSelection) {
-        
-        playerSelection = getPlayerChoice();
         computerSelection = getComputerChoice();
 
+        setTimeout(function(){
+            divText.textContent = "You've chosen " + playerSelection.toUpperCase() + "! An intriguing choice..... one could never have expected such boldness.";
+        }, 1000);
+        
         if (playerSelection === "paper" && computerSelection === "rock") {
-            alert("You win! Paper beats rock.");
-            playerPoints += 1;
+            setTimeout(function(){
+                divText.textContent = "You win! Paper beats rock.";
+            }, 6000);
+            
+            playerUp();
+            
         }
     
         else if (playerSelection === "scissors" && computerSelection === "paper") {
-            alert("You win! Scissors beat paper.");
-            playerPoints += 1;
+            setTimeout(function(){
+                divText.textContent = "You win! Scissors beat paper.";
+            }, 6000);
+        
+            playerUp();
         }
         
         else if (playerSelection === "rock" && computerSelection === "scissors") {
-            alert("You win! Rock beats scissors.");
-            playerPoints += 1;
+            setTimeout(function(){
+                divText.textContent = "You win! Rock beats scissors.";
+            }, 6000);
+            
+            playerUp();
         }
     
         else if (playerSelection === "rock" && computerSelection === "paper") {
-            alert("You lose! Paper beats rock.");
-            computerPoints += 1;
+            setTimeout(function(){
+                divText.textContent = "You lose! Paper beats rock.";
+            }, 6000);
+            
+            computerUp();
         }
     
         else if (playerSelection === "paper" && computerSelection === "scissors") {
-            alert("You lose! Scissors beat paper.");
-            computerPoints += 1;
+            setTimeout(function(){
+                divText.textContent = "You lose! Scissors beat paper.";
+            }, 6000);
+            
+            computerUp();
         }
         
         else if (playerSelection === "scissors" && computerSelection === "rock") {
-            alert("You lose! Rock beats scissors.");
-            computerPoints += 1;
+            setTimeout(function(){
+                divText.textContent = "You lose! Rock beats scissors.";
+            }, 6000);
+            
+            computerUp();
         }
 
         else {
-            alert("It's a tie....");
-            playerPoints += 1;
-            computerPoints += 1;
+            setTimeout(function(){
+                divText.textContent = "It's a tie....";
+            }, 6000);
+            
+            
         }
     
- return playerPoints, computerPoints;
+ return playerPoints, computerPoints; 
+
+ winState();
+}
+
+const divText = document.createElement('div');
+divText.setAttribute('id', 'divText');
+
+const coreText = document.createElement('div');
+coreText.setAttribute('id', 'coreText');
+
+
+coreText.textContent = "PlayerPoints: "; 
+
+
+const scoreText = document.createElement('div');
+scoreText.setAttribute('id', 'scoreText');
+
+const coreText2 = document.createElement('div');
+coreText2.setAttribute('id', 'coreText2');
+
+coreText2.textContent = "ComputerPoints: "; 
+
+const scoreText2 = document.createElement('div');
+scoreText2.setAttribute('id', 'scoreText2');
+
+scoreText.textContent = playerPoints; 
+scoreText2.textContent = computerPoints; 
+
+
+const buddinz = document.querySelector('#buddinz');
+
+buddinz.appendChild(divText);
+linebreak = document.createElement("br");
+buddinz.appendChild(linebreak);
+buddinz.appendChild(coreText);
+buddinz.appendChild(linebreak);
+buddinz.appendChild(scoreText);
+buddinz.appendChild(linebreak);
+buddinz.appendChild(coreText2);
+buddinz.appendChild(linebreak);
+buddinz.appendChild(scoreText2);
+
+
+
+const btnRock = document.querySelector('#btnR');
+btnRock.addEventListener('click', () => {
+  divText.textContent = "Rock!";
+  playRound('rock');
+});
+
+const btnPaper = document.querySelector('#btnP');
+btnPaper.addEventListener('click', () => {
+  divText.textContent = "Paper!";
+  playRound('paper');
+});
+
+const btnScissors = document.querySelector('#btnS');
+btnScissors.addEventListener('click', () => {
+  divText.textContent = "Scissors!";
+  playRound('scissors');
+});
+
+
+
+
+/* function game() {
+
+    console.log("Best out of 5!")
+
+    playRound();
+
+    playRound();
     
+    playRound();
+    
+    playRound();
+    
+    playRound();
+
+    console.log("Player Points = " + playerPoints + " and Computer Points = " + computerPoints + ".")
+
 }
 
 
-
-
-function game() {
-
-    alert("Best out of 5!")
-
-    playRound();
-
-    playRound();
-    
-    playRound();
-    
-    playRound();
-    
-    playRound();
-
-    alert("Player Points = " + playerPoints + " and Computer Points = " + computerPoints + ".")
-
-}
-
-
-game();
+game(); */

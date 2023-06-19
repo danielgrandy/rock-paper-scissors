@@ -28,7 +28,9 @@ function computerUp() {
 
 
 
-/* function winState (playerPoints, computerPoints) {
+/* failed first win state attempt, I still have NO IDEA why this didn't work....
+
+    function winState (playerPoints, computerPoints) {
     
    if (playerPoints === 5) {
     

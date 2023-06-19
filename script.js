@@ -26,27 +26,38 @@ function computerUp() {
    }, 4000);
 };
 
-function winState () {
-    if (playerPoints === 5) {
-    setTimeout(function(){
-        divText.textContent = "You've won!";
-    }, 8000);
-}
-    else if (computerPoints === 5) {
-        setTimeout(function(){
-            divText.textContent = "You've failed!";
-        }, 8000);
-    }
+
+
+/* function winState (playerPoints, computerPoints) {
     
-};
+   if (playerPoints === 5) {
+    
+        divText.innerHTML='You have won! Game over! <button onclick="endGame()">Click here to play again</button>';
+        btnRock.setAttribute("disabled", 1);
+        btnPaper.setAttribute("disabled", 1);
+        btnScissors.setAttribute("disabled", 1);
+        
+    }
+
+    else if (computerPoints === 5) {
+       
+        divText.innerHTML='You have failed. Game over! <button onclick="endGame()">Click here to play again</button>';
+        btnRock.setAttribute("disabled", 1);
+        btnPaper.setAttribute("disabled", 1);
+        btnScissors.setAttribute("disabled", 1);
+      
+    }
+}; */
+
+let round = 0;
 
 
 function playRound(playerSelection, computerSelection) {
-        computerSelection = getComputerChoice();
+    round++;
+    
+    computerSelection = getComputerChoice();
 
-        setTimeout(function(){
             divText.textContent = "You've chosen " + playerSelection.toUpperCase() + "! An intriguing choice..... one could never have expected such boldness.";
-        }, 1000);
         
         if (playerSelection === "paper" && computerSelection === "rock") {
             setTimeout(function(){
@@ -71,6 +82,7 @@ function playRound(playerSelection, computerSelection) {
             }, 6000);
             
             playerUp();
+
         }
     
         else if (playerSelection === "rock" && computerSelection === "paper") {
@@ -79,6 +91,7 @@ function playRound(playerSelection, computerSelection) {
             }, 6000);
             
             computerUp();
+ 
         }
     
         else if (playerSelection === "paper" && computerSelection === "scissors") {
@@ -87,6 +100,7 @@ function playRound(playerSelection, computerSelection) {
             }, 6000);
             
             computerUp();
+
         }
         
         else if (playerSelection === "scissors" && computerSelection === "rock") {
@@ -95,6 +109,7 @@ function playRound(playerSelection, computerSelection) {
             }, 6000);
             
             computerUp();
+  
         }
 
         else {
@@ -102,16 +117,52 @@ function playRound(playerSelection, computerSelection) {
                 divText.textContent = "It's a tie....";
             }, 6000);
             
-            
+   
+        }
+
+    function winOrLose () {    
+    if (round === 5) {
+        if (playerPoints > computerPoints) {
+            setTimeout(function(){
+            divText.innerHTML='You have won! Game over! <button onclick="location.reload()">Click here to play again</button>';
+            btnRock.setAttribute("disabled", 1);
+            btnPaper.setAttribute("disabled", 1);
+            btnScissors.setAttribute("disabled", 1);
+            }, 10000);
         }
     
+        else if (computerPoints > playerPoints) {
+            setTimeout(function(){
+            divText.innerHTML='You have failed. Game over! <button onclick="location.reload()">Click here to play again</button>';
+            btnRock.setAttribute("disabled", 1);
+            btnPaper.setAttribute("disabled", 1);
+            btnScissors.setAttribute("disabled", 1);
+        }, 10000);
+        }
+
+        else {
+            setTimeout(function(){
+            divText.innerHTML='Tis a tie! Game over! <button onclick="location.reload()">Click here to play again</button>';
+            btnRock.setAttribute("disabled", 1);
+            btnPaper.setAttribute("disabled", 1);
+            btnScissors.setAttribute("disabled", 1);
+        }, 10000);
+        }
+}
+    }
+
+    winOrLose();
+
  return playerPoints, computerPoints; 
 
- winState();
+ 
 }
 
 const divText = document.createElement('div');
 divText.setAttribute('id', 'divText');
+
+
+divText.textContent = "Welcome to the Rock, Paper, Scissors simulation! Let's play! Best out of five rounds.";
 
 const coreText = document.createElement('div');
 coreText.setAttribute('id', 'coreText');
@@ -152,20 +203,20 @@ buddinz.appendChild(scoreText2);
 
 const btnRock = document.querySelector('#btnR');
 btnRock.addEventListener('click', () => {
-  divText.textContent = "Rock!";
   playRound('rock');
+ 
 });
 
 const btnPaper = document.querySelector('#btnP');
 btnPaper.addEventListener('click', () => {
-  divText.textContent = "Paper!";
   playRound('paper');
+ 
 });
 
 const btnScissors = document.querySelector('#btnS');
 btnScissors.addEventListener('click', () => {
-  divText.textContent = "Scissors!";
   playRound('scissors');
+ 
 });
 
 
